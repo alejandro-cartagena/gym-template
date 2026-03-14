@@ -9,6 +9,7 @@ const mont = Montserrat({
 
 interface HeroProps {
   titleLines?: string[];
+  tagline?: string[];
   ctaLabel?: string;
   ctaHref?: string;
   backgroundImageUrl?: string;
@@ -16,10 +17,12 @@ interface HeroProps {
 }
 
 export default function Hero({
-  titleLines = ["Unlock the path to", "your dream", "physique."],
-  ctaLabel = "Join My Team",
+  titleLines = ["Welcome to", "Iramis Gym"],
+  tagline = ["Home of IFBB Pro Iramis Portero. Real training.", "Real results."],
+  ctaLabel = "Start Training",
   ctaHref = "/#contact",
-  backgroundImageUrl = "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  // backgroundImageUrl = "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  backgroundImageUrl = "/images/iramis-gym.jpg",
   overlayClassName = "bg-black/60",
 }: HeroProps) {
   return (
@@ -58,6 +61,13 @@ export default function Hero({
 
           {/* Accent underline */}
           <div className="mt-3 h-1 w-20 bg-[var(--accent-primary)] sm:w-24" aria-hidden="true" />
+
+          {/* Tagline */}
+          <p className="mt-4 max-w-lg text-base leading-relaxed text-white/95 sm:text-lg">
+            {tagline[0]}
+            <br />
+            {tagline[1]}
+          </p>
 
           {/* CTA */}
           <div className={`mt-6 ${mont.className}`}>
