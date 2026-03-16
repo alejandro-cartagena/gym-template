@@ -2,6 +2,7 @@ import Link from "next/link";
 import Container from "@/components/ui/Container";
 import { siteConfig } from "@/config/site";
 import Button from "@/components/ui/Button";
+import { Phone } from "lucide-react";
 import SocialIcons from "@/components/ui/SocialIcons";
 
 export default function Footer() {
@@ -23,10 +24,11 @@ export default function Footer() {
               <Button
                 href="/#contact"
                 variant="primary"
-                className="shadow-sm"
+                className="shadow-sm gap-2"
                 aria-label="Join my team"
               >
-                Join the Movement
+                <Phone size={14} />
+                Contact Us
               </Button>
             </div>
           </div>

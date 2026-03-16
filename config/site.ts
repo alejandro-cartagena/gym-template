@@ -1,13 +1,15 @@
 import type { SocialLink } from "@/types/social";
 
 export const siteConfig = {
-  name: "Zyzz",
+  name: "Iramis Gym",
   tagline: "Transform Your Body. Elevate Your Mind.",
   description:
     "Personal training and nutrition coaching for busy professionals.",
   email: "coach@eliteperformance.com",
   phone: "305-555-1234",
   location: "Miami, FL",
+  rating: 4.9,
+  reviewCount: 150,
 
   navigation: [
     { label: "About", href: "/#about" },

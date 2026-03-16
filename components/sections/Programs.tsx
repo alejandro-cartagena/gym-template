@@ -1,9 +1,11 @@
 "use client";
 
+import { useState } from "react";
 import Container from "@/components/ui/Container";
 import { siteConfig } from "@/config/site";
 import Button from "@/components/ui/Button";
 import { Montserrat } from "next/font/google";
+import { Dumbbell, Trophy, TrendingUp, Sun, CalendarDays } from "lucide-react";
 
 const mont = Montserrat({
   subsets: ["latin"],
@@ -25,119 +27,143 @@ interface Program {
   ctaHref: string;
   isCurrentPlan?: boolean;
   isPopular?: boolean;
-  icon: "foundation" | "transformation" | "elite";
+  icon: "monthly" | "yearly" | "sixmonths" | "daypass" | "weekly";
   features: ProgramFeature[];
 }
 
-const defaultPrograms: Program[] = [
+const mainPlans: Program[] = [
   {
-    id: "foundation",
-    title: "Foundation",
-    tagline: "For those starting their journey",
-    price: "149",
+    id: "monthly",
+    title: "Monthly",
+    tagline: "Flexible month-to-month access",
+    price: "50",
     pricePeriod: "/month",
     ctaText: "Get Started",
     ctaHref: "/#contact",
-    isCurrentPlan: false,
     isPopular: false,
-    icon: "foundation",
+    icon: "monthly",
     features: [
-      { text: "Custom training plan" },
-      { text: "Weekly check-ins" },
-      { text: "Macro guidance" },
-      { text: "Access to private community" },
+      { text: "Unlimited gym access" },
+      { text: "Locker room & showers" },
+      { text: "Access to all equipment" },
+      { text: "Group fitness classes" },
     ],
   },
   {
-    id: "transformation",
-    title: "Transformation",
-    tagline: "As you level up",
-    price: "299",
-    pricePeriod: "/month",
-    ctaText: "Get Transformation",
+    id: "yearly",
+    title: "1 Year Upfront",
+    tagline: "Best value — save big annually",
+    price: "480",
+    pricePeriod: "/year",
+    ctaText: "Get Annual",
     ctaHref: "/#contact",
     isPopular: true,
-    icon: "transformation",
+    icon: "yearly",
     features: [
-      { text: "Everything in Foundation" },
-      { text: "1:1 video form reviews" },
-      { text: "Custom nutrition + meal support" },
-      { text: "Unlimited messaging" },
-      { text: "Progress photo reviews" },
-      { text: "Priority scheduling" },
+      { text: "Unlimited gym access" },
+      { text: "Locker room & showers" },
+      { text: "Access to all equipment" },
+      { text: "Group fitness classes" },
+      { text: "1 free personal training session/month" },
+      { text: "Nutrition guidance" },
     ],
   },
   {
-    id: "elite",
-    title: "Elite",
-    tagline: "For serious results",
-    price: "499",
-    pricePeriod: "/month",
-    ctaText: "Get Elite",
+    id: "sixmonths",
+    title: "6 Months Upfront",
+    tagline: "Commit to 6 months & save",
+    price: "270",
+    pricePeriod: "/6 months",
+    ctaText: "Get 6-Month Plan",
     ctaHref: "/#contact",
-    icon: "elite",
+    isPopular: false,
+    icon: "sixmonths",
     features: [
-      { text: "Everything in Transformation" },
-      { text: "Bi-weekly video calls" },
-      { text: "Competition prep support" },
-      { text: "Supplement & recovery guidance" },
-      { text: "Custom programming updates" },
-      { text: "Dedicated check-in slot" },
+      { text: "Unlimited gym access" },
+      { text: "Locker room & showers" },
+      { text: "Access to all equipment" },
+      { text: "Group fitness classes" },
+      { text: "2 free personal training sessions" },
     ],
   },
 ];
 
+const passPlans: Program[] = [
+  {
+    id: "daypass",
+    title: "Day Pass",
+    tagline: "Drop in for a single session",
+    price: "15",
+    pricePeriod: "/day",
+    ctaText: "Get Day Pass",
+    ctaHref: "/#contact",
+    isPopular: false,
+    icon: "daypass",
+    features: [
+      { text: "Full gym access for 1 day" },
+      { text: "Locker room & showers" },
+      { text: "Access to all equipment" },
+    ],
+  },
+  {
+    id: "weekly",
+    title: "Weekly Pass",
+    tagline: "Train all week, no commitment",
+    price: "40",
+    pricePeriod: "/week",
+    ctaText: "Get Weekly Pass",
+    ctaHref: "/#contact",
+    isPopular: false,
+    icon: "weekly",
+    features: [
+      { text: "Full gym access for 7 days" },
+      { text: "Locker room & showers" },
+      { text: "Access to all equipment" },
+      { text: "Group fitness classes" },
+    ],
+  },
+];
+
+const iconMap = {
+  monthly: Dumbbell,
+  yearly: Trophy,
+  sixmonths: TrendingUp,
+  daypass: Sun,
+  weekly: CalendarDays,
+} as const;
+
 function ProgramIcon({ type }: { type: Program["icon"] }) {
   const { accent, text } = siteConfig.branding.colors;
-  const iconBg = accent.primary;
-  const iconColor = text.inverse;
+  const Icon = iconMap[type];
 
-  if (type === "foundation") {
-    return (
-      <span
-        className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full"
-        style={{ backgroundColor: iconBg, color: iconColor }}
-        aria-hidden
-      >
-        <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-          <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
-        </svg>
-      </span>
-    );
-  }
-  if (type === "transformation") {
-    return (
-      <span
-        className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full"
-        style={{ backgroundColor: iconBg, color: iconColor }}
-        aria-hidden
-      >
-        <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-          <path strokeLinecap="round" strokeLinejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-        </svg>
-      </span>
-    );
-  }
   return (
     <span
       className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full"
-      style={{ backgroundColor: iconBg, color: iconColor }}
+      style={{ backgroundColor: accent.primary, color: text.inverse }}
       aria-hidden
     >
-      <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
-      </svg>
+      <Icon className="h-5 w-5" />
     </span>
   );
 }
 
 function ProgramCard({ program }: { program: Program }) {
   const { colors } = siteConfig.branding;
+  const [hovered, setHovered] = useState(false);
 
   return (
     <article
-      className="relative flex flex-col rounded-2xl border bg-white p-6 shadow-md ring-1 ring-black/5 sm:p-8"
-      style={{ borderColor: colors.border }}
+      className="relative flex flex-col rounded-2xl border bg-white p-6 ring-1 ring-black/5 sm:p-8"
+      style={{
+        borderColor: hovered ? colors.accent.primary : colors.border,
+        boxShadow: hovered
+          ? `0 20px 40px -8px ${colors.accent.primary}55, 0 8px 20px -4px ${colors.accent.primary}30`
+          : "0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)",
+        transform: hovered ? "translateY(-6px)" : "translateY(0)",
+        transition: "transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease",
+      }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
     >
       {program.isPopular && (
         <div
@@ -215,7 +241,11 @@ function ProgramCard({ program }: { program: Program }) {
         </p>
         <ul className="flex flex-col gap-3">
           {program.features.map((feature, idx) => (
-            <li key={idx} className="flex items-start gap-3 text-sm" style={{ color: colors.text.secondary }}>
+            <li
+              key={idx}
+              className="flex items-start gap-3 text-sm"
+              style={{ color: colors.text.secondary }}
+            >
               <span
                 className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-white"
                 style={{ backgroundColor: colors.accent.primary }}
@@ -246,26 +276,14 @@ function ProgramCard({ program }: { program: Program }) {
   );
 }
 
-interface ProgramsProps {
-  eyebrow?: string;
-  heading?: string;
-  subheading?: string;
-  programs?: Program[];
-}
-
-export default function Programs({
-  eyebrow = "Coaching",
-  heading = "Programs",
-  subheading = "Choose the level of support that fits your goals. All plans include personalized attention and proven methods.",
-  programs = defaultPrograms,
-}: ProgramsProps) {
+export default function Programs() {
   const { colors } = siteConfig.branding;
 
   return (
     <section
       id="programs"
       className="w-full py-16 sm:py-20 lg:py-24"
-      style={{ backgroundColor: colors.background.secondary }}
+      style={{ backgroundColor: colors.background.primary }}
       aria-labelledby="programs-heading"
     >
       <Container>
@@ -274,25 +292,33 @@ export default function Programs({
             className="inline-block text-xs font-semibold uppercase tracking-[0.2em]"
             style={{ color: colors.accent.primary }}
           >
-            {eyebrow}
+            Membership
           </span>
           <h2
             id="programs-heading"
             className={`${mont.className} mt-2 text-2xl font-extrabold tracking-tight sm:text-3xl lg:text-4xl`}
             style={{ color: colors.text.primary }}
           >
-            {heading}
+            Pricing
           </h2>
           <p
             className="mx-auto mt-3 max-w-2xl text-base sm:text-lg"
             style={{ color: colors.text.secondary }}
           >
-            {subheading}
+            Flexible membership options to fit your schedule and budget. No hidden fees — just results.
           </p>
         </header>
 
-        <div className="mt-10 grid gap-6 sm:mt-12 md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
-          {programs.map((program) => (
+        {/* Row 1 — 3 main membership plans */}
+        <div className="mt-10 grid gap-6 sm:mt-12 md:grid-cols-3">
+          {mainPlans.map((program) => (
+            <ProgramCard key={program.id} program={program} />
+          ))}
+        </div>
+
+        {/* Row 2 — 2 pass options, centered */}
+        <div className="mt-6 grid gap-6 md:grid-cols-2 md:max-w-2xl md:mx-auto">
+          {passPlans.map((program) => (
             <ProgramCard key={program.id} program={program} />
           ))}
         </div>

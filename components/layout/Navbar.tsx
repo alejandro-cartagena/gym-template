@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
+import { Phone } from "lucide-react";
 import Container from "@/components/ui/Container";
 import { siteConfig } from "@/config/site";
 
@@ -44,29 +46,36 @@ export default function Navbar() {
   }, [isOpen]);
 
   const navBg = isScrolled
-    ? "bg-white/90 backdrop-blur-md border-b border-black/5 shadow-sm"
+    ? "bg-zinc-900 backdrop-blur-md border-b border-black/5 shadow-sm"
     : "bg-transparent border-b border-transparent";
   const textClass = isScrolled
-    ? "text-zinc-900 hover:text-zinc-700"
+    ? "text-white hover:text-white/90"
     : "text-white hover:text-white/90";
   const burgerClass = isScrolled
-    ? "border-zinc-200 bg-white text-zinc-900 hover:bg-zinc-50"
+    ? "border-white/30 bg-white/10 text-white hover:bg-white/20"
     : "border-white/30 bg-white/10 text-white hover:bg-white/20";
 
   return (
     <>
       <nav
-        className={`fixed inset-x-0 top-0 z-50 h-16 transition-all duration-300 ${navBg}`}
+        className={`fixed inset-x-0 top-0 z-50 h-22 transition-all duration-300 ${navBg}`}
         aria-label="Main navigation"
       >
         <Container className="flex h-full w-full items-center justify-between">
           {/* Brand */}
           <Link
             href="/"
-            className={`relative z-50 select-none text-base font-semibold tracking-wide transition-colors ${textClass}`}
+            className="relative z-50 select-none"
             aria-label={siteConfig?.name ?? "Home"}
           >
-            {siteConfig?.name ?? "Brand"}
+            <Image
+              src="/images/logo.png"
+              alt={siteConfig?.name ?? "Logo"}
+              width={100}
+              height={100}
+              className="object-contain"
+              priority
+            />
           </Link>
 
           {/* Desktop nav */}
@@ -82,6 +91,16 @@ export default function Navbar() {
               </li>
             ))}
           </ul>
+
+          {/* Call Now — desktop */}
+          <a
+            href={`tel:${siteConfig.phone}`}
+            className="hidden md:inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold text-white transition-opacity hover:opacity-90"
+            style={{ backgroundColor: siteConfig.branding.colors.accent.primary }}
+          >
+            <Phone size={14} />
+            Call Now
+          </a>
 
           {/* Mobile burger */}
           <button
@@ -167,6 +186,14 @@ export default function Navbar() {
               </li>
             ))}
           </ul>
+          <a
+            href={`tel:${siteConfig.phone}`}
+            className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full px-4 py-2.5 text-sm font-semibold text-white transition-opacity hover:opacity-90"
+            style={{ backgroundColor: siteConfig.branding.colors.accent.primary }}
+          >
+            <Phone size={14} />
+            Call Now
+          </a>
         </nav>
       </aside>
     </>
