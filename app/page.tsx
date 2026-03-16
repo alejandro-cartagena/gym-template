@@ -28,6 +28,7 @@ import OurCoaches from "@/components/sections/OurCoaches/OurCoaches";
 import Masonry from "@/components/sections/Masonry/Masonry";
 import ClassSchedule from "@/components/sections/ClassSchedule/ClassSchedule";
 import AboutV2 from "@/components/sections/About/AboutV2";
+import Location from "@/components/sections/Location/Location";
 
 
 export default function Home() {
@@ -49,6 +50,7 @@ export default function Home() {
       <GoogleMarquee />
       <Programs />
       <Masonry />
+      <Location />
       {/* <About /> */}
       {/* <MyTransformation /> */}
       {/* <Marquee /> */}

@@ -44,10 +44,7 @@ const masonryImages = [
     src: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=900&h=1200&fit=crop&q=80",
     alt: "Athlete working out with intensity",
   },
-  {
-    src: "https://images.unsplash.com/photo-1506629082955-511b1aa562c8?w=900&h=1200&fit=crop&q=80",
-    alt: "Dumbbell rack in a well-lit gym",
-  },
+ 
 ] as const;
 
 export default function Masonry() {
