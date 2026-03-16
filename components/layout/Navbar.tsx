@@ -95,10 +95,10 @@ export default function Navbar() {
           {/* Call Now — desktop */}
           <a
             href={`tel:${siteConfig.phone}`}
-            className="hidden md:inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold text-white transition-opacity hover:opacity-90"
+            className="hidden md:inline-flex items-center gap-2 rounded-full px-4 py-2 text-base font-semibold text-white transition-opacity hover:opacity-90"
             style={{ backgroundColor: siteConfig.branding.colors.accent.primary }}
           >
-            <Phone size={14} />
+            <Phone size={18} />
             Call Now
           </a>
 
@@ -145,17 +145,25 @@ export default function Navbar() {
       <aside
         id="mobile-sidebar"
         aria-hidden={!isOpen}
-        className={`fixed right-0 top-0 z-[70] h-full w-[75%] max-w-sm bg-white shadow-2xl transition-transform duration-300 ease-in-out will-change-transform md:hidden ${
+        className={`fixed right-0 top-0 z-[70] h-full w-[75%] max-w-sm bg-zinc-900 shadow-2xl transition-transform duration-300 ease-in-out will-change-transform md:hidden ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
-        <div className="flex h-16 items-center justify-between border-b border-zinc-100 px-4">
-          <span className="text-base font-semibold">{siteConfig?.name ?? "Brand"}</span>
+        <div className="flex h-16 items-center justify-between border-b border-zinc-700 px-4">
+          <Link href="/" onClick={() => setIsOpen(false)} aria-label={siteConfig?.name ?? "Home"}>
+            <Image
+              src="/images/logo.png"
+              alt={siteConfig?.name ?? "Logo"}
+              width={72}
+              height={72}
+              className="object-contain"
+            />
+          </Link>
           <button
             type="button"
             aria-label="Close menu"
             onClick={() => setIsOpen(false)}
-            className="cursor-pointer inline-flex h-9 w-9 items-center justify-center rounded-md border border-zinc-200 bg-white text-zinc-900 transition hover:bg-zinc-50 active:scale-95"
+            className="cursor-pointer inline-flex h-9 w-9 items-center justify-center rounded-md border border-zinc-700 bg-zinc-800 text-white transition hover:bg-zinc-700 active:scale-95"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -179,7 +187,7 @@ export default function Navbar() {
                 <Link
                   href={item.href}
                   onClick={() => setIsOpen(false)}
-                  className="block rounded-md px-3 py-2 text-sm font-medium tracking-wide text-zinc-800 transition-colors hover:bg-zinc-50"
+                  className="block rounded-md px-3 py-2 text-sm font-medium tracking-wide text-white transition-colors hover:bg-zinc-800"
                 >
                   {item.label}
                 </Link>

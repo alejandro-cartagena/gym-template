@@ -13,19 +13,14 @@ export const siteConfig = {
 
   navigation: [
     { label: "About", href: "/#about" },
-    { label: "Programs", href: "/#programs" },
-    { label: "Features", href: "/#features" },
-    { label: "Testimonials", href: "/#testimonials" },
+    { label: "Pricing", href: "/#pricing" },
+    { label: "Our Gym", href: "/#our-gym" },
   ],
 
   socials: [
     {
       platform: "instagram" as const,
-      url: "https://instagram.com/clarkchrm",
-    },
-    {
-      platform: "tiktok" as const,
-      url: "https://tiktok.com/@clarkcharm",
+      url: "https://www.instagram.com/ifbbpro_iramis_portero/",
     },
   ] satisfies SocialLink[],
 
